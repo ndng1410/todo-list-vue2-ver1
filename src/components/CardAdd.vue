@@ -18,35 +18,36 @@
         </div>
       </div>
     </form>
-    <card-task
-      v-for="(task, index) in tasks"
+    <!-- <card-task
+      v-for="(task) in tasks"
       v-bind:key="task.id"
       v-bind:taskName="task.taskName"
-      @remove-task="removeTask(index)"
     >
-    </card-task>
-
+    </card-task> -->
   </div>
 </template>
 
 <script>
-import CardTask from "./CardTask.vue";
-import { mapActions } from "vuex";
+// import CardTask from "./CardTask.vue";
+import { mapState } from "vuex";
+// import { mapActions } from "vuex";
 // import store from "../assets/store/store.js";
 
 export default {
   name: "task-itemlist",
   components: {
-    'card-task': CardTask,
+    // 'card-task': CardTask,
   },
+  // computed nhận value từ store, task() có value = data tasks trong store
+  computed: mapState({
+    // tasks() {
+    //   return this.$store.state.tasks;
+    // }
+    tasks: (state) => state.tasks,
+  }),
   data() {
     return {
       input: "",
-      tasks: [
-        // { id: 1, taskName: "job1" },
-        // { id: 2, taskName: "job2" },
-        // { id: 3, taskName: "job3" },
-      ],
       nextTodoId: 0,
     };
   },
@@ -55,21 +56,22 @@ export default {
       if (this.input.trim(" ") == "") {
         console.log("error");
       } else {
-        this.tasks.push({
-          id: this.nextTodoId++,
+        console.log(this.nextTodoId);
+        this.$store.dispatch("setTask", {
           taskName: this.input,
+          id: this.nextTodoId,
         });
-        // store.commit("setTask", this.tasks);
+        this.nextTodoId++;
         this.input = "";
       }
     },
-    ...mapActions({
-      setTask: "setTask",
-    }),
-    removeTask(target) {
-      this.tasks.splice(target, 1);
-      console.log(target);
-    },
+    // ...mapActions({
+    //   setTask: "setTask",
+    // }),
+    // removeTask(target) {
+    //   this.$store.state.tasks.splice(target, 1);
+    //   console.log(target);
+    // },
   },
 };
 </script>

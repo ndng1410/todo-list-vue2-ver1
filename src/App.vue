@@ -4,45 +4,31 @@
       <h1>To do List</h1>
     </div>
     <card-add></card-add>
-    <input v-model="taskName" />
+    <!-- <input v-model="taskName" />
     <button @click="setTaskName">thay doi task</button>
     <h1>{{ getTaskName }}</h1>
     <h2>{{ getTaskid }}</h2>
-    <button @click="gettasklist">123124</button>
+    <button @click="gettasklist">123124</button> -->
+    <card-task></card-task>
   </div>
 </template>
 
 <script>
-import './assets/style/global.css';
-import CardAddVue from './components/CardAdd.vue';
+import "./assets/style/global.css";
+import CardAddVue from "./components/CardAdd.vue";
+import CardTaskVue from "./components/CardTask.vue";
+// import { mapState } from "vuex";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    'card-add': CardAddVue,
+    "card-add": CardAddVue,
+    "card-task": CardTaskVue,
   },
-  data() {
-    return {
-      taskName: '',
-    }
-  },
-  computed: {
-    getTaskName() {
-      return this.$store.state.taskName;
-    },
-    getTaskid() {
-      return this.$store.state.id;
-    }
-  },
-  methods: {
-    setTaskName() {
-      this.$store.dispatch('handleSetTaskName', this.taskName)
-    },
-    gettasklist() {
-      console.log(this.$store.getters.gettasklist)
-    },
-  }
-}
+  // computed: mapState({
+  //   tasks: (state) => state.tasks,
+  // }),
+};
 </script>
 
 <style>
